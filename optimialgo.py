@@ -8,8 +8,8 @@ Capacidad = pd.read_csv("capacidad.csv")
 # Print column names in the Demanda DataFrame
 print("Demanda DataFrame Columns:", Demanda.columns)
 
-# Define the time slots from 7:00 AM to 7:00 PM
-time_slots = list(range(7, 20))  # Assuming 15-minute slots for simplicity
+# Define the time slots from 6:00 AM to 7:00 PM
+time_slots = list(range(9, 19))  # Assuming 15-minute slots for simplicity
 
 # Create a binary variable for each employee, time slot, and state
 employees = range(1, 9)
@@ -27,7 +27,7 @@ prob += lpSum(x[e][t]['working'] for e in employees for t in time_slots) - Deman
 
 # Define the constraints based on the 'fecha_hora' column in the Demanda DataFrame
 for t in time_slots:
-    prob += lpSum(x[e][t]['working'] for e in employees) >= Demanda.at[t - 7, demand_column_name]
+    prob += lpSum(x[e][t]['working'] for e in employees) >= Demanda.at[t - 6, demand_column_name]
 
 # Additional Constraints
 for e in employees:
@@ -56,4 +56,4 @@ for t in time_slots:
                 schedule_df.at[t, e] = s
 
 # Export the DataFrame to a CSV file
-schedule_df.to_csv("optimized_schedule.csv", index_label="fecha_hora")
+schedule_df.to_csv("optimized_horario.csv", index_label="fecha_hora")
