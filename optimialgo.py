@@ -40,7 +40,6 @@ for e in employees:
         if t + 8 in time_slots:
             prob += lpSum(x[e][t + i]['working'] for i in range(9)) <= 2 * x[e][t]['working']
 
-# ... (rest of the constraints remain unchanged)
 
 # Solve the problem
 prob.solve()
